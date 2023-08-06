@@ -9,7 +9,8 @@ const verify_Token=async(req,res,next)=>{
             if(err){
                 res.status(401).json({message:"invalid Token"})
             }
-           return decoded
+          
+           req.user=decoded
         })
     }
     next();

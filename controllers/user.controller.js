@@ -10,7 +10,7 @@ const login=async(req,res)=>{
       const data=await userModel.findOne({email:req.body.email})
       if(!data){
         res.status(404)
-        res.json({status:404,message:"Not found"})
+        res.json({status:404,message:"User not found, Please check credentials and try again!"})
       }
       else{
         bcrypt.compare(req.body.password,data.password,function(err, result) {
@@ -36,24 +36,25 @@ const logout=async(req,res)=>{
 
 }
 const getuser = async (req, res) => {
-    const data = await userModel.findById(req.params.id)
-    console.log('data',data)
+    const userData = req.user
+    const user_id=userData.user.user_id
+    const data = await userModel.findById(user_id)
     if(!data){
         res.status(404);
         throw new Error('Not Found')
-    }else{res.json({status:200,data:data})}
+    }else{res.json({status:200,message:'sucess',data:data})}
 }
 
 const createuser =async (req, res) => {
     try{
+        console.log(req.body)
         const {first_name,last_name,email,phone_Number,password}=req.body
         const uniquedata = await userModel.findOne({email})
-        console.log("uniquedata",uniquedata)
         if(uniquedata){
-            res.status(400).json({error:"email already exist"})
+            res.status(400).json({message:"email already exist"})
         }
         if(!first_name||!last_name||!email||!phone_Number||!password){
-            res.status(400).json({error:"enter valid data"})
+            res.status(400).json({message:"enter valid data"})
         }
     req.body.image=req.file.filename
     const salt = await bcrypt.genSalt(10)

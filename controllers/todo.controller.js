@@ -4,11 +4,12 @@ const mongoose=require("mongoose")
 //to reduce the code of try catch in async funcion it automatically call error handler.
 
 const gettodo = async (req, res) => {
-    console.log('decoded')
-    const data = await TodoModel.find({user_id:req.params.id})
-    console.log(data)
+  const userData = req.user
+  const user_id=userData.user.user_id
+    const data = await TodoModel.find({user_id})
     if(!data||data.length==0){
-        res.status(404).json({message:"Not found"})
+      const data1=[{title:"No Task To Display",createdAt:null,description:"please Add Task"}]
+        res.status(404).json({message:"Not found",data:data1})
     }
     else{
         res.status(200).json({message:"sucess",data:data})
@@ -17,8 +18,11 @@ const gettodo = async (req, res) => {
 }
 
 const createtodo =async (req, res) => {
-    const {title,description,user_id}=req.body
-    if(!title||!description||!user_id){
+  const userData = req.user;
+  const userid=userData.user.user_id;
+  req.body.user_id=userid;
+  const {title,description}=req.body
+    if(!title||!description){
         res.status(400).json({message:'All fields are mendatory'});
     }
     else{

@@ -7,9 +7,9 @@ const upload = require('../middleware/multerMiddleware');
 const varify  = require("../middleware/auth")
 
 
-router.route('/login').get(userController.login);
+router.route('/login').post(userController.login);
 router.route('/logout').post(userController.logout);
-router.route('/getuser/:id').get(varify,userController.getuser);
+router.route('/getuser').get(varify,userController.getuser);
 router.route('/createuser').post(upload,userController.createuser);
 router.route('/edituser/:id').patch(upload,varify,userController.edituser);
 router.route('/deleteuser/:id').delete(varify,userController.deleteuser);
