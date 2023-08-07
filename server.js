@@ -1,7 +1,7 @@
 var bodyParser = require('body-parser')
 const express=require("express")
 const app=express();
-//const cors=require("cors");
+const cors=require("cors");
 const dotenv= require("dotenv").config()
 const port=process.env.PORT || 8080;
 const db=require("./db_Connection")
@@ -10,7 +10,7 @@ const {errorHandler} = require('./middleware/errorHandler');
 const ejs=require("ejs")
 const path =require("path")
 
-//app.use(cors());
+app.use(cors());
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

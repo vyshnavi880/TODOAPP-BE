@@ -11,7 +11,7 @@ router.route('/login').post(userController.login);
 router.route('/logout').post(userController.logout);
 router.route('/getuser').get(varify,userController.getuser);
 router.route('/createuser').post(upload,userController.createuser);
-router.route('/edituser/:id').patch(upload,varify,userController.edituser);
+router.route('/edituser').patch(upload,varify,userController.edituser);
 router.route('/deleteuser/:id').delete(varify,userController.deleteuser);
 
 module.exports =router

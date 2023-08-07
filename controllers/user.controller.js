@@ -94,16 +94,29 @@ const createuser =async (req, res) => {
 
 const edituser =async (req, res) => {
     try{
-        const id=req.params.id;
+        const userData = req.user
+        const user_id=userData.user.user_id
+        console.log(req.file,'req..........................................')
         req.body.image=req.file.filename
-        const data = await userModel.findByIdAndUpdate(id,req.body)
+    const salt = await bcrypt.genSalt(10)
+    bcrypt.hash(req.body.password,salt, async function(err,hashedPass){
+        if (err) {
+            res.json({
+              error: err,
+            });
+          } 
+    req.body.password=hashedPass;
+        const data = await userModel.findByIdAndUpdate(user_id,req.body,{
+            new: true, // Return the updated document after the update
+          })
         res.status(200)
         res.json({status:200, message:"Updated",data:data})
+    })
     }
     catch(error){
         console.log("error",error)
         res.status(500)
-        res.send({status: 500, message: "something went wrong"})
+        res.send({status: 500, message: "something went wrong",error:error})
     }
 }
 
