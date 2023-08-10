@@ -96,7 +96,6 @@ const edituser =async (req, res) => {
     try{
         const userData = req.user
         const user_id=userData.user.user_id
-        console.log(req.file,'req..........................................')
         req.body.image=req.file.filename
     const salt = await bcrypt.genSalt(10)
     bcrypt.hash(req.body.password,salt, async function(err,hashedPass){
@@ -121,7 +120,8 @@ const edituser =async (req, res) => {
 }
 
 const deleteuser =async (req, res) => {
-    const id=req.params.id;
+    const userData = req.user
+    const id=userData.user.user_id
     try {
         // Find the document by ID and update it (Replace 'YourModel' with your actual model name)
         const deletedData = await userModel.findByIdAndDelete(id);

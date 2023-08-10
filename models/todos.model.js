@@ -6,6 +6,9 @@ const todoschemas= mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,ref:"tb_user",
         required:true
     },
+    dueDate:{
+        type:Date
+    },
     title:
    {
        type: String,
