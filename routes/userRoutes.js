@@ -13,5 +13,7 @@ router.route('/getuser').get(varify,userController.getuser);
 router.route('/createuser').post(upload,userController.createuser);
 router.route('/edituser').patch(upload,varify,userController.edituser);
 router.route('/deleteuser').delete(varify,userController.deleteuser);
+router.route('/forgotPassword').post(userController.forgotPassword);
+router.route('/resetpassword').patch(userController.resetPassword);
 
 module.exports =router

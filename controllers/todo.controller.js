@@ -1,18 +1,59 @@
 const asyncHandler= require("express-async-handler")
 const TodoModel=require("../models/todos.model")
+const pick=require("../middleware/pick")
 const mongoose=require("mongoose")
 //to reduce the code of try catch in async funcion it automatically call error handler.
 
+// const gettodo = async (req, res) => {
+//   try{
+//   const userData = req.user
+//   const user_id=userData.user.user_id
+//   const options = pick(req.query, ['limit', 'page', 'searchBy']);
+//   options.limit = Number(options.limit);
+//   options.page = Number(options.page);
+//   const skip = (options.page - 1) * options.limit;
+//   let query = { user_id };
+//   if (options.searchBy) {
+//     // If search query is provided, add a regex search condition for title and description
+//     query.$or = [
+//       { title: { $regex: options.searchBy } },
+//       { description: { $regex: options.searchBy } }
+//     ];
+//   }
+//   const totalDocs = await TodoModel.countDocuments(query).skip(skip)
+//   .limit(options.limit);
+//     const data = await TodoModel.find(query).skip(skip)
+//     .limit(options.limit);
+//     if(!data||data.length==0){
+//       const data1=[{title:"No Task To Display",createdAt:null,description:"please Add Task"}]
+//         res.status(404).json({message:"Not found",data:data1})
+//     }
+//     else{
+//         res.status(200).json({message:"sucess",total:totalDocs,data:data})
+//     }
+//   }
+//     catch(error){
+//       console.log(error)
+//       res.status(500).json({message:"internal server error"})
+//     }
+   
+// }
 const gettodo = async (req, res) => {
+  try{
   const userData = req.user
   const user_id=userData.user.user_id
-    const data = await TodoModel.find({user_id})
+    const data = await TodoModel.find({user_id});
     if(!data||data.length==0){
       const data1=[{title:"No Task To Display",createdAt:null,description:"please Add Task"}]
         res.status(404).json({message:"Not found",data:data1})
     }
     else{
         res.status(200).json({message:"sucess",data:data})
+    }
+  }
+    catch(error){
+      console.log(error)
+      res.status(500).json({message:"internal server error"})
     }
    
 }
