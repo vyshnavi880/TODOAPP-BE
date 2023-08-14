@@ -11,6 +11,10 @@ const ejs=require("ejs")
 const path =require("path")
 
 app.use(cors());
+// app.use(cors({
+//   origin: '',
+//   optionsSuccessStatus: 200
+// }));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

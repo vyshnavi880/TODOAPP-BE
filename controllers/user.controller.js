@@ -270,7 +270,6 @@ const sendReminderEmail = async (todo) => {
 const checkDueDatesAndSendEmails = async () => {
     try {
         const currentDate = moment().startOf('day');
-        console.log("currentDate", currentDate)
         //   const todos = await todoModel.find({ dueDate: { 
         //this is a method to fetch data from both table using .populate() 
         //     $gte: currentDate.toDate(),   
@@ -300,7 +299,6 @@ const checkDueDatesAndSendEmails = async () => {
                 $unwind: '$user'
             }
         ])
-        console.log('todos', todos)
         for (const todo of todos) {
                 await sendReminderEmail(todo);
         }
