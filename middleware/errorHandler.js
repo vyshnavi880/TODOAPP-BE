@@ -1,6 +1,6 @@
 
 const errorHandler=(err,req,res,nest)=>{
-    console.log("calling")
+    // console.log("calling")
     const statusCode=res.statusCode?res.statusCode:500;
     if (err instanceof mongoose.Error.ValidationError) {
         res.send(err.errors);
