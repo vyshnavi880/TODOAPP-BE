@@ -56,7 +56,7 @@ const getuser = async (req, res) => {
 
 const createuser = async (req, res) => {
     try {
-        console.log(req.body)
+        // console.log(req.body)
         const { first_name, last_name, email, phone_Number, password } = req.body
         const uniquedata = await userModel.findOne({ email })
         if (uniquedata) {
@@ -66,7 +66,8 @@ const createuser = async (req, res) => {
             res.status(400).json({ message: "enter valid data" })
         }
         req.body.image = req.file.filename
-        const salt = await bcrypt.genSalt(10)
+        //const salt = await bcrypt.genSalt(10)
+        const salt=10
         bcrypt.hash(req.body.password, salt, async function (err, hashedPass) {
             if (err) {
                 res.json({
@@ -76,7 +77,7 @@ const createuser = async (req, res) => {
             req.body.password = hashedPass;
             const data = await userModel.create(req.body)
             if (data) {
-                console.log(data._id.valueOf())
+                //console.log(data._id.valueOf())
                 const accessToken = await jwt.sign({
                     user: {
                         user_id: data._id,
@@ -106,7 +107,8 @@ const edituser = async (req, res) => {
         const userData = req.user
         const user_id = userData.user.user_id
         req.body.image = req.file.filename
-        const salt = await bcrypt.genSalt(10)
+        //const salt = await bcrypt.genSalt(10)
+        const salt =10
         bcrypt.hash(req.body.password, salt, async function (err, hashedPass) {
             if (err) {
                 res.json({
@@ -212,7 +214,8 @@ const forgotPassword = async (req, res) => {
     }
 }
 const resetPassword = async (req, res) => {
-    const salt = await bcrypt.genSalt(10)
+    //const salt = await bcrypt.genSalt(10)
+    const salt=10
     bcrypt.hash(req.body.password, salt, async function (err, hashedPass) {
         if (err) {
             res.json({
