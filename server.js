@@ -34,9 +34,9 @@ app.use((err, req, res, next) => {
   res.status(500).render('error', { error: err.message }); // Assuming you have an "error" view to render
 });
 
-if(process.env.NODE_ENV == 'production'){
-  app.use(express.static("client/build"));
-}
+// if(process.env.NODE_ENV == 'production'){
+//   app.use(express.static("client/build"));
+// }
 
 const server=app.listen(port,()=>{
     console.log(`server running on port ${port}`)
