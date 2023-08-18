@@ -310,8 +310,8 @@ const checkDueDatesAndSendEmails = async () => {
     }
 };
 
-// Schedule the task to run daily at 05:30 AM
-cron.schedule('45 6 * * *', checkDueDatesAndSendEmails);
+// Schedule the task to run daily at 04:30 AM
+cron.schedule('30 04 * * *', checkDueDatesAndSendEmails);
 //above remaining * * * are date month and week
 
 module.exports = { login, logout, getuser, createuser, edituser, deleteuser, resetPassword, forgotPassword }
