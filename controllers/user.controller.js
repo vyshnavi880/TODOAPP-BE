@@ -310,7 +310,7 @@ const checkDueDatesAndSendEmails = async () => {
         console.error('Error checking due dates and sending emails:', error);
     }
 };
-cron.schedule('03 19 * * *', () => {
+cron.schedule('12 19 * * *', () => {
     console.log('Cron job scheduled'); // Log to check if the cron job is scheduled
     checkDueDatesAndSendEmails();
   });
