@@ -273,7 +273,6 @@ const sendReminderEmail = async (todo) => {
 const checkDueDatesAndSendEmails = async () => {
     try {
         const currentDate = moment().startOf('day');
-        console.log("cron fun calling...")
         //   const todos = await todoModel.find({ dueDate: { 
         //this is a method to fetch data from both table using .populate() 
         //     $gte: currentDate.toDate(),   
@@ -303,17 +302,20 @@ const checkDueDatesAndSendEmails = async () => {
                 $unwind: '$user'
             }
         ])
-        for (const todo of todos) {
+        if (todos) {
+            for (const todo of todos) {
                 await sendReminderEmail(todo);
+            }
         }
     } catch (error) {
         console.error('Error checking due dates and sending emails:', error);
     }
 };
-cron.schedule('12 19 * * *', () => {
+
+  cron.schedule(`${process.env.cronBalanceTimings}`,()=>{
     console.log('Cron job scheduled'); // Log to check if the cron job is scheduled
     checkDueDatesAndSendEmails();
-  });
+  },{timezone:'Asia/Calcutta'})
 // Schedule the task to run daily at 04:30 AM
 //cron.schedule('30 04 * * *', checkDueDatesAndSendEmails);
 //above remaining * * * are date month and week

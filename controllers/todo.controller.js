@@ -68,7 +68,6 @@ const createtodo =async (req, res) => {
     }
     else{
         const data=await TodoModel.create(req.body)
-        console.log("task created")
         res.status(200).json({message:"sucess",data:data})
     }
 }
